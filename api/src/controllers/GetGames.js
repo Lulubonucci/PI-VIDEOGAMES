@@ -3,6 +3,7 @@ const {
   apiCallDescription,
   apiCallName,
 } = require("../request/ApiCall");
+
 const { Videogame, Genre } = require("../db");
 const axios = require("axios");
 require("dotenv").config();
@@ -59,7 +60,7 @@ const getGameByName = async (req, res) => {
 const getGamesById = async (req, res) => {
   const { id } = req.params;
   try {
-    if (id.length <= 5) {
+    if (id.length <= 7) {
       const videoGameApi = await apiCallDescription(id);
       res.send(videoGameApi);
     }
@@ -105,10 +106,11 @@ const getGenres = async (req, res) => {
 };
 
 const postNewGame = async (req, res) => {
-  let { name, genres, description, released, rating, platforms, createInDb } = req.body;
+  let { name, genres, description, released, rating, platforms, createInDb } =
+    req.body;
 
-  if (!name || !description || !released || !rating)
-    return res.status(404).json({ msg: "Info are required" });
+  if (!name || !description || !rating)
+    return res.status(404).json({ msg: "EROOR!!!" });
   else {
     try {
       let newGames = await Videogame.create({
@@ -117,7 +119,8 @@ const postNewGame = async (req, res) => {
         released,
         rating,
         platforms,
-        createInDb
+        createInDb,
+        image : "https://www.cinconoticias.com/wp-content/uploads/Generos-de-videojuegos.jpg"
       });
       let id_genres = await Genre.findAll({ where: { name: genres } });
       await newGames.addGenre(id_genres);
@@ -127,8 +130,6 @@ const postNewGame = async (req, res) => {
     }
   }
 };
-
-
 
 module.exports = {
   getVideoGames,

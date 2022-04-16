@@ -7,10 +7,7 @@ const {
   getGenres,
   postNewGame,
   getGameByName,
-  deleteGame,
 } = require("../controllers/GetGames");
-
-
 
 router.get("/getAll", getVideoGames);
 router.get("/getGenres", getGenres);

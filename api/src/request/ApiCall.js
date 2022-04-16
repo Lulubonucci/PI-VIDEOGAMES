@@ -67,6 +67,10 @@ const apiCallName = async (name) => {
         image: j.background_image,
         name: j.name,
         genres: j.genres,
+        released: j.released,
+        rating: j.rating,
+        platforms: j.platforms,
+        description: j.description_raw
       };
     });
     return result;
